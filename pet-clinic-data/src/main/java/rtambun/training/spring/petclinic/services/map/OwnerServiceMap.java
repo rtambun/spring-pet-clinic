@@ -1,11 +1,13 @@
 package rtambun.training.spring.petclinic.services.map;
 
+import org.springframework.stereotype.Service;
 import rtambun.training.spring.petclinic.model.Owner;
-import rtambun.training.spring.petclinic.services.CrudService;
+import rtambun.training.spring.petclinic.services.OwnerService;
 
 import java.util.Set;
 
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements CrudService<Owner, Long> {
+@Service
+public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
     @Override
     public Set<Owner> findAll() {
         return super.findAll();
@@ -29,5 +31,14 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
     @Override
     public void deleteById(Long id) {
         super.deleteById(id);
+    }
+
+    @Override
+    public Owner findByLastName(String lastName) {
+        Set<Owner> allOwner = findAll();
+        return allOwner.stream()
+                .filter(owner -> owner.getLastName().contentEquals(lastName))
+                .findFirst()
+                .orElse(null);
     }
 }
