@@ -1,9 +1,8 @@
 package rtambun.training.spring.petclinic.services.map;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import org.hibernate.mapping.Collection;
+
+import java.util.*;
 
 public abstract class AbstractMapService<T, ID> {
 
@@ -28,5 +27,9 @@ public abstract class AbstractMapService<T, ID> {
 
     void delete(T object){
         map.entrySet().removeIf(entry -> entry.getValue().equals(object));
+    }
+
+    private Long getNextId () {
+        return Collections.max()
     }
 }
