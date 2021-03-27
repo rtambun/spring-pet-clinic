@@ -1,12 +1,12 @@
 package rtambun.training.spring.petclinic.services.map;
 
-import org.hibernate.mapping.Collection;
+import rtambun.training.spring.petclinic.model.BaseEntity;
 
 import java.util.*;
 
-public abstract class AbstractMapService<T, ID> {
+public abstract class AbstractMapService<T extends BaseEntity, ID extends Long> {
 
-    protected Map<ID, T> map = new HashMap<>();
+    protected Map<Long, T> map = new HashMap<>();
 
     Set<T> findAll(){
         return new HashSet<>(map.values());
@@ -16,8 +16,9 @@ public abstract class AbstractMapService<T, ID> {
         return map.get(id);
     }
 
-    T save(ID id, T object){
-        map.put(id, object);
+    T save(T object){
+        object.setId(getNextId());
+        map.put(object.getId(), object);
         return object;
     }
 
@@ -30,6 +31,10 @@ public abstract class AbstractMapService<T, ID> {
     }
 
     private Long getNextId () {
-        return Collections.max()
+        try {
+            return Collections.max(map.keySet()) + 1L;
+        } catch (NoSuchElementException noSuchElementException) {
+            return 1L;
+        }
     }
 }
