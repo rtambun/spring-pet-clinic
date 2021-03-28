@@ -2,7 +2,6 @@ package rtambun.training.spring.petclinic.services.map;
 
 import org.springframework.stereotype.Service;
 import rtambun.training.spring.petclinic.model.Pet;
-import rtambun.training.spring.petclinic.services.CrudService;
 import rtambun.training.spring.petclinic.services.PetService;
 
 import java.util.Set;
