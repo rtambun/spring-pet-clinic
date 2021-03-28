@@ -8,6 +8,13 @@ import java.util.Set;
 
 @Service
 public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
+
+    private final SpecialityMapService specialtyMapService;
+
+    public VetServiceMap(SpecialityMapService specialtyMapService) {
+        this.specialtyMapService = specialtyMapService;
+    }
+
     @Override
     public Set<Vet> findAll() {
         return super.findAll();
@@ -20,6 +27,14 @@ public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetS
 
     @Override
     public Vet save(Vet object) {
+        if (object.getSpecialities().size() > 0) {
+            object.getSpecialities().forEach(specialty -> {
+                if (specialty.getId() == null) {
+                    specialty.setId(specialtyMapService.save(specialty).getId());
+                }
+            });
+        }
+        //TODO: Check if vet must have speciality
         return super.save(object);
     }
 
