@@ -27,7 +27,12 @@ public class DataLoader implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        if (petTypeService.findAll().size() == 0) {
+            loadData();
+        }
+    }
 
+    private void loadData() {
         PetType dogType = new PetType();
         dogType.setName("dog");
         PetType savedDogType = petTypeService.save(dogType);
@@ -97,6 +102,5 @@ public class DataLoader implements CommandLineRunner {
         vetService.save(vet2);
 
         System.out.println("------- Loading vet ------------");
-
     }
 }
