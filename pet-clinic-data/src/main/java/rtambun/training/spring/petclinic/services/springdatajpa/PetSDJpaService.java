@@ -3,7 +3,6 @@ package rtambun.training.spring.petclinic.services.springdatajpa;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 import rtambun.training.spring.petclinic.model.Pet;
-import rtambun.training.spring.petclinic.model.PetType;
 import rtambun.training.spring.petclinic.repositories.PetRepository;
 import rtambun.training.spring.petclinic.services.PetService;
 
