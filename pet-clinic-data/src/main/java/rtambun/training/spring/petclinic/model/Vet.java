@@ -1,17 +1,24 @@
 package rtambun.training.spring.petclinic.model;
 
+import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
 
+@Entity
+@Table(name = "vets")
 public class Vet extends Person{
 
-    private Set<Speciality> specialties = new HashSet<>();
+    @ManyToMany()
+    @JoinTable(name = "vets_specialities",
+            joinColumns = @JoinColumn("vet_id"),
+            inverseJoinColumns = ("speciality_id"))
+    private Set<Speciality> specialities = new HashSet<>();
 
     public Set<Speciality> getSpecialities() {
-        return specialties;
+        return specialities;
     }
 
     public void setSpecialities(Set<Speciality> specialties) {
-        this.specialties = specialties;
+        this.specialities = specialties;
     }
 }
