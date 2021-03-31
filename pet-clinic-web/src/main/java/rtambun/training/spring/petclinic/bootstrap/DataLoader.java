@@ -3,10 +3,7 @@ package rtambun.training.spring.petclinic.bootstrap;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import rtambun.training.spring.petclinic.model.*;
-import rtambun.training.spring.petclinic.services.OwnerService;
-import rtambun.training.spring.petclinic.services.PetTypeService;
-import rtambun.training.spring.petclinic.services.SpecialityService;
-import rtambun.training.spring.petclinic.services.VetService;
+import rtambun.training.spring.petclinic.services.*;
 
 import java.time.LocalDate;
 
@@ -17,12 +14,14 @@ public class DataLoader implements CommandLineRunner {
     private final VetService vetService;
     private final PetTypeService petTypeService;
     private final SpecialityService specialityService;
+    private final VisitService visitService;
 
-    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService) {
+    public DataLoader(OwnerService ownerService, VetService vetService, PetTypeService petTypeService, SpecialityService specialityService, VisitService visitService) {
         this.ownerService = ownerService;
         this.vetService = vetService;
         this.petTypeService = petTypeService;
         this.specialityService = specialityService;
+        this.visitService = visitService;
     }
 
     @Override
@@ -81,9 +80,16 @@ public class DataLoader implements CommandLineRunner {
         yenniPet.setPetType(savedCatType);
         yenniPet.setOwner(yenni);
         yenniPet.setBirthDate(LocalDate.now());
-        richson.getPets().add(yenniPet);
+        yenni.getPets().add(yenniPet);
 
         ownerService.save(yenni);
+
+        Visit yenniPetVisit = new Visit();
+        yenniPetVisit.setPet(yenniPet);
+        yenniPetVisit.setDate(LocalDate.now());
+        yenniPetVisit.setDescription("Yenni pet cough");
+
+        visitService.save(yenniPetVisit);
 
         System.out.println("------- Loading owner ------------");
 
