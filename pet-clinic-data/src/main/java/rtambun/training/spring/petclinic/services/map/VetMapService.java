@@ -7,11 +7,11 @@ import rtambun.training.spring.petclinic.services.VetService;
 import java.util.Set;
 
 @Service
-public class VetServiceMap extends AbstractMapService<Vet, Long> implements VetService {
+public class VetMapService extends AbstractMapService<Vet, Long> implements VetService {
 
     private final SpecialityMapService specialtyMapService;
 
-    public VetServiceMap(SpecialityMapService specialtyMapService) {
+    public VetMapService(SpecialityMapService specialtyMapService) {
         this.specialtyMapService = specialtyMapService;
     }
 

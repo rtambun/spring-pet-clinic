@@ -8,14 +8,14 @@ import rtambun.training.spring.petclinic.services.OwnerService;
 import java.util.Set;
 
 @Service
-public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements OwnerService {
+public class OwnerMapService extends AbstractMapService<Owner, Long> implements OwnerService {
 
-    private final PetServiceMap petServiceMap;
-    private final PetTypeServiceMap petTypeServiceMap;
+    private final PetMapService petMapService;
+    private final PetTypeMapService petTypeMapService;
 
-    public OwnerServiceMap(PetServiceMap petServiceMap, PetTypeServiceMap petTypeServiceMap) {
-        this.petServiceMap = petServiceMap;
-        this.petTypeServiceMap = petTypeServiceMap;
+    public OwnerMapService(PetMapService petMapService, PetTypeMapService petTypeMapService) {
+        this.petMapService = petMapService;
+        this.petTypeMapService = petTypeMapService;
     }
 
     @Override
@@ -35,14 +35,14 @@ public class OwnerServiceMap extends AbstractMapService<Owner, Long> implements 
                 object.getPets().forEach(pet -> {
                     if (pet.getPetType() != null) {
                         if (pet.getId() == null) {
-                            pet.setPetType(petTypeServiceMap.save(pet.getPetType()));
+                            pet.setPetType(petTypeMapService.save(pet.getPetType()));
                         }
                     } else {
                         throw new RuntimeException("Pet type need to be set");
                     }
 
                     if (pet.getId() == null) {
-                        Pet savedPet = petServiceMap.save(pet);
+                        Pet savedPet = petMapService.save(pet);
                         pet.setId(savedPet.getId());
                     }
                 });
