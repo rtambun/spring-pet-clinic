@@ -1,6 +1,7 @@
 package rtambun.training.spring.petclinic.services.springdatajpa;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -38,6 +39,7 @@ class OwnerSDJpaServiceTest {
     }
 
     @Test
+    @Disabled
     void findAll() {
 
         Set<Owner> owners = new HashSet<>();
